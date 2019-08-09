@@ -1,8 +1,8 @@
 <extend name="../../Admin/View/Common/element_layout"/>
 
 <block name="content">
-    <!--  引入vue  -->
-    <script src="https://unpkg.com/vue-i18n/dist/vue-i18n.js"></script>
+    <!--  引入vue，仅作示例，生产环境请勿引入第三方  -->
+    <script src="https://cdn.bootcss.com/vue-i18n/8.12.0/vue-i18n.min.js"></script>
     <div id="app" style="padding: 8px;height: 100%;" v-cloak>
         <el-card>
             <h2>语言切换示例（Vue-i18n）</h2>
@@ -15,6 +15,8 @@
                         :value="item.lang">
                 </el-option>
             </el-select>
+            <h4>{{ $t('hello') }}</h4>
+            <el-button type="primary" @click="countLangAmount">点击统计语言数量</el-button>
             <h4>{{ $t('hello') }}</h4>
 
         </el-card>
@@ -43,20 +45,27 @@
                     ],
                     messages: {
                         CN: {
-                            hello: '你好世界'
+                            hello: '你好世界',
+                            countLangAmount: '合计有{amount}种语言',
                         },
                         EN: {
-                            hello: 'hello world'
+                            hello: 'hello world',
+                            countLangAmount: 'There are {amount} languages in total',
                         },
                         JP: {
-                            hello: 'こんにちは、世界'
+                            hello: 'こんにちは、世界',
+                            countLangAmount: '合計して、{amount}言語があります',
                         },
                         FR: {
                             //法语没有翻译，用回 fallbackLocale
                         }
                     }
                 },
-                methods: {},
+                methods: {
+                    countLangAmount: function(){
+                        this.$message.success(this.$t('countLangAmount', {amount: this.lang_info.length}))
+                    }
+                },
                 watch: {
                     current_lang: function(newValue){
                         console.log('语言切换为==>'+newValue)
