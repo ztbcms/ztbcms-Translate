@@ -17,7 +17,6 @@
             </el-select>
             <h4>{{ $t('hello') }}</h4>
             <el-button type="primary" @click="countLangAmount">点击统计语言数量</el-button>
-            <h4>{{ $t('hello') }}</h4>
 
         </el-card>
     </div>
@@ -68,7 +67,7 @@
                 },
                 watch: {
                     current_lang: function(newValue){
-                        console.log('语言切换为==>'+newValue)
+                        this.$message.success('语言切换为==>'+newValue)
                         this.$i18n.locale = newValue
                     }
                 },
