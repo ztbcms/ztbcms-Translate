@@ -102,7 +102,7 @@
                         layer.open({
                             type: 2,
                             title: '编辑文档',
-                            content: '{:U("Translate/Catalog/index")}&id='+id,
+                            content: '/Translate/ConstantCategory/index?id='+id,
                             area: ['90%', '90%']
                         });
                     }
