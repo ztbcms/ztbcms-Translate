@@ -55,7 +55,7 @@ class ConstantController extends AdminBase
         }
         $res = D('Translate/Constant')->add([
             'category_id' => $category_id,
-            'key' => $key . '.',
+            'key' => $key,
             'key_name' => '',
         ]);
         $this->ajaxReturn(self::createReturn(true, $res, '添加成功'));

@@ -19,10 +19,16 @@ class DictionaryService extends BaseService
      */
     private $fallbackLang = '中文';
 
+    function getDictionary($dictionary_id)
+    {
+        $dictionary = D('Translate/Dictionary')->where(['dictionary_id' => $dictionary_id])->find();
+        return self::createReturn(true, $dictionary);
+    }
+
     /**
      * @return string
      */
-    public function getFallbackLang()
+    function getFallbackLang()
     {
         return $this->fallbackLang;
     }
@@ -30,7 +36,7 @@ class DictionaryService extends BaseService
     /**
      * @param string $fallbackLang
      */
-    public function setFallbackLang($fallbackLang)
+    function setFallbackLang($fallbackLang)
     {
         $this->fallbackLang = $fallbackLang;
     }
@@ -52,7 +58,6 @@ class DictionaryService extends BaseService
 
         //格式化返回
         $values = $this->formatValueByCurrentAvailableLang($key, $values)['data'];
-//        var_dump($values);exit;
         return self::createReturn(true, $values);
     }
 
@@ -133,12 +138,12 @@ class DictionaryService extends BaseService
 
     static function delDictionary($key)
     {
-        M('Dictionary')->where(['key' => $key])->delete();
+        D('Translate/Dictionary')->where(['key' => $key])->delete();
     }
 
     static function delDictionaryByLang($lang)
     {
-        M('Dictionary')->where(['lang' => $lang])->delete();
+        D('Translate/Dictionary')->where(['lang' => $lang])->delete();
     }
 
     /**
@@ -176,7 +181,7 @@ class DictionaryService extends BaseService
      */
     static function createDictionary($data = [])
     {
-        return self::create('Dictionary', $data);
+        return self::create('Translate/Dictionary', $data);
     }
 
     /**

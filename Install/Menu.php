@@ -27,7 +27,45 @@ return array(
                 "type" => 1,
                 "status" => 1,
                 "name" => "语言列表",
-            )
+            ),
+            array(
+                "route" => "Translate/DictionaryAdmin/index",
+                "type" => 0,
+                "status" => 1,
+                "name" => "字典管理",
+                "child" => array(
+                    array(
+                        "route" => "Translate/DictionaryAdmin/dictionaryList",
+                        "type" => 1,
+                        "status" => 1,
+                        "name" => "字典列表",
+                    ),
+                    array(
+                        "route" => "Translate/DictionaryAdmin/getList",
+                        "type" => 1,
+                        "status" => 0,
+                        "name" => "获取字典列表",
+                    ),
+                    array(
+                        "route" => "Translate/DictionaryAdmin/editDictionary",
+                        "type" => 1,
+                        "status" => 0,
+                        "name" => "新增/编辑字典页",
+                    ),
+                    array(
+                        "route" => "Translate/DictionaryAdmin/doEditDictionary",
+                        "type" => 1,
+                        "status" => 0,
+                        "name" => "新增/编辑字典操作",
+                    ),
+                    array(
+                        "route" => "Translate/DictionaryAdmin/deleteDictionary",
+                        "type" => 1,
+                        "status" => 0,
+                        "name" => "删除字典操作",
+                    ),
+                )
+            ),
         ),
     ),
 );
