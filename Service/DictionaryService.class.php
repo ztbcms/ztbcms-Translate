@@ -100,16 +100,16 @@ class DictionaryService extends BaseService
      *
      * @param $key
      * @param string $lang
-     * @return string
+     * @return array
      */
     function getValueByKey($key, $lang)
     {
-        $value = M('Dictionary')->where(['lang' => $lang, 'key' => $key])->getField('value');
-        if ($value) {
-            return $value;
+        $dict = D('Translate/Dictionary')->where(['lang' => $lang, 'key' => $key])->find();
+        if ($dict) {
+            return self::createReturn(true, $dict['value']);
         } else {
             if ($lang == $this->getFallbackLang()) {
-                return '';
+                return self::createReturn(true, '');;
             } else {
                 return $this->getValueByKey($key, $this->getFallbackLang());
             }
@@ -202,7 +202,8 @@ class DictionaryService extends BaseService
         return self::delete('Translate/Dictionary', ['id' => $id]);
     }
 
-    function deleteDictionaryByKey($key){
+    function deleteDictionaryByKey($key)
+    {
         return self::delete('Translate/Dictionary', ['key' => $key]);
     }
 
