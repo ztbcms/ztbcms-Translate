@@ -5,7 +5,7 @@
         <div class="table_list">
             <table class="table table-bordered table-hover">
                 <tr>
-                    <td>name</td>
+                    <td>名称</td>
                     <td>
                         <input class="form-control" style="width: 30%;" type="text" v-model="postData.name">
                     </td>

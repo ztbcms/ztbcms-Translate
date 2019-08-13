@@ -29,17 +29,11 @@ return array(
                 "name" => "语言列表",
             ),
             array(
-                "route" => "Translate/DictionaryAdmin/index",
-                "type" => 0,
+                "route" => "Translate/DictionaryAdmin/dictionaryList",
+                "type" => 1,
                 "status" => 1,
                 "name" => "字典管理",
                 "child" => array(
-                    array(
-                        "route" => "Translate/DictionaryAdmin/dictionaryList",
-                        "type" => 1,
-                        "status" => 1,
-                        "name" => "字典列表",
-                    ),
                     array(
                         "route" => "Translate/DictionaryAdmin/getList",
                         "type" => 1,
