@@ -46,29 +46,6 @@ class LanguageService extends BaseService
         self::$project_id = $project_id;
     }
 
-    /**
-     * 获取翻译
-     * @param $key
-     * @return string 翻译
-     */
-    static function getText($key)
-    {
-        $language = self::$lang;
-        $project_id = self::$project_id;
-        $data = D('Translate/Content')->where(['path' => $key, 'project_id' => $project_id])->getField('data');
-        $arr = json_decode($data, true);
-        if ($arr[$language]) {
-            return $arr[$language];
-        } else {
-            $default_lang = D('Translate/Language')->where(['is_default' => 1])->getField('lang');
-            if (!empty($default_lang)) {
-                return $arr[$default_lang];
-            }
-
-            return '';
-        }
-    }
-
     static function getAvailableLang()
     {
         $langs = D('Translate/Language')->order(['is_default' => 'desc'])->select();
