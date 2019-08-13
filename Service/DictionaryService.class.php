@@ -35,6 +35,66 @@ class DictionaryService extends BaseService
         $this->fallbackLang = $fallbackLang;
     }
 
+
+    function getAllValueByKey($key)
+    {
+        $values = D('Translate/Dictionary')->where(['key' => $key])->select();
+        if (empty($values)) {
+            $values = [];
+        }
+
+        return self::createReturn(true, $values);
+    }
+
+    function getAllValueByKeyWithFormat($key)
+    {
+        $values = $this->getAllValueByKey($key)['data'];
+
+        //格式化返回
+        $values = $this->formatValueByCurrentAvailableLang($key, $values)['data'];
+//        var_dump($values);exit;
+        return self::createReturn(true, $values);
+    }
+
+
+    /**
+     *
+     * @param $key
+     * @param $dictionary_list array list of Translate/Dictionary
+     * @return array
+     */
+    function formatValueByCurrentAvailableLang($key, $dictionary_list)
+    {
+        $langs = LanguageService::getAvailableLang()['data'];
+        $result = [];
+        foreach ($langs as $index => $lang) {
+            $item = [
+                'dictionary_id' => 0,
+                'key' => $key,
+                'value' => '',
+                'lang' => $lang['lang'],
+                'lang_name' => $lang['lang_name'],
+            ];
+            //查找是否有默认的语言
+            $lang_dictionary = null;
+            foreach ($dictionary_list as $i => $dictionary) {
+                if ($dictionary['lang'] == $lang['lang']) {
+                    $lang_dictionary = $dictionary;
+                    break;
+                }
+            }
+            if (!empty($lang_dictionary)) {
+                $item['dictionary_id'] = $lang_dictionary['dictionary_id'];
+                $item['value'] = $lang_dictionary['value'];
+            }
+
+            $result [] = $item;
+        }
+
+        return self::createReturn(true, $result);
+    }
+
+
     /**
      * 获取字典值
      *
@@ -137,8 +197,13 @@ class DictionaryService extends BaseService
      * @param $id
      * @return array
      */
-    static function deleteDictionaryById($id)
+    function deleteDictionaryById($id)
     {
-        return self::delete('Dictionary', ['id' => $id]);
+        return self::delete('Translate/Dictionary', ['id' => $id]);
     }
+
+    function deleteDictionaryByKey($key){
+        return self::delete('Translate/Dictionary', ['key' => $key]);
+    }
+
 }

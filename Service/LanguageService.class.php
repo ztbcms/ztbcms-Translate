@@ -68,4 +68,14 @@ class LanguageService extends BaseService
             return '';
         }
     }
+
+    static function getAvailableLang()
+    {
+        $langs = D('Translate/Language')->order(['is_default' => 'desc'])->select();
+        if (empty($langs)) {
+            $langs = [];
+        }
+        return self::createReturn(true, $langs);
+
+    }
 }

@@ -21,17 +21,19 @@
                 <tbody>
                 <tr v-for="(item,index) in items">
                     <td align="center">
-                        <span></span><input class="form-control" type="text" v-model="item.path" @change="editContent(index)">
+                        <p><span>key</span><input class="form-control" type="text" v-model="item.key" @change="editConstant(index)"></p>
+                        <p><span>key名称</span><input class="form-control" type="text" v-model="item.key_name" @change="editConstant(index)"></p>
                     </td>
                     <td align="center">
-                        <volist name="langList" id="vo">
+                        <template v-for="dictionary in  item.dictionary">
                             <div style="padding: 10px;">
-                                <span style="width: 10%;display: inline-block;text-align: right;padding-right: 8px;">{$vo.lang}  </span><input class="form-control" type="text" v-model="item.data.{$vo.lang}" @change="editContent(index)" style="display: inline-block;width: 80%" >
+                                <span style="width: 10%;display: inline-block;text-align: right;padding-right: 8px;">{{ dictionary.lang }}  </span>
+                                <input class="form-control" type="text" v-model="dictionary.value" @change="editConstant(index)" style="display: inline-block;width: 80%" >
                             </div>
-                        </volist>
+                        </template>
                     </td>
                     <td align="center">
-                        <a @click="delContent(item.id)" class="btn btn-danger">删除</a>
+                        <a @click="delConstant(item.id)" class="btn btn-danger">删除</a>
                     </td>
                 </tr>
                 </tbody>
@@ -83,31 +85,30 @@
                             }
                         })
                     },
-                    editContent: function(index){
+                    editConstant: function(index){
                         var that = this;
-                        var data = {
-                            id: that.items[index].id,
-                            path: that.items[index].path,
-                            data: that.items[index].data
-                        };
+                        var data = that.items[index]
+                        // console.log(data)
+                        // return
                         $.ajax({
-                            url: '{:U("Translate/Constant/editContent")}',
+                            url: '{:U("Translate/Constant/editConstant")}',
                             data: data,
                             dataType: 'json',
                             type: 'post',
                             success: function (res) {
                                 if(res.status){
-                                    layer.msg('OK', {time: 1000});
+                                    layer.msg(res.msg, {time: 1000});
+                                    that.getList()
                                 }else{
                                     layer.msg(res.msg, {time: 1000});
                                 }
                             }
                         })
                     },
-                    delContent: function(id){
+                    delConstant: function(id){
                         var that = this;
                         $.ajax({
-                            url: '{:U("Translate/Constant/delContent")}',
+                            url: '{:U("Translate/Constant/delConstant")}',
                             data: {id: id},
                             dataType: 'json',
                             type: 'post',

@@ -9,6 +9,8 @@ namespace Translate\Controller;
 
 
 use Common\Controller\AdminBase;
+use Translate\Service\ConstantService;
+use Translate\Service\DictionaryService;
 
 class ConstantController extends AdminBase
 {
@@ -26,8 +28,10 @@ class ConstantController extends AdminBase
     {
         $category_id = I('get.category_id');
         $items = D('Translate/Constant')->where(['category_id' => $category_id])->order('id DESC')->select();
+        $DictionaryService = new DictionaryService();
         foreach ($items as &$item) {
             $item['data'] = null;
+            $item['dictionary'] = $DictionaryService->getAllValueByKeyWithFormat($item['key'])['data'];
         }
         $data = [
             'items' => $items ?: []
@@ -41,10 +45,17 @@ class ConstantController extends AdminBase
     public function addConstant()
     {
         $category_id = I('post.category_id');
-        $parent_path = D('Translate/ConstantCategory')->where(['id' => $category_id])->getField('key');
+        $key = D('Translate/ConstantCategory')->where(['id' => $category_id])->getField('key');
+        $key = $key . '.';
+        //检测key是否已占用
+        $is_used = D('Translate/Constant')->where(['key' => ['EQ', $key]])->count() > 0;
+        if ($is_used) {
+            $this->ajaxReturn(self::createReturn(false, null, '参数错误：Key 已被使用'));
+            return;
+        }
         $res = D('Translate/Constant')->add([
             'category_id' => $category_id,
-            'key' => $parent_path . '.',
+            'key' => $key . '.',
             'key_name' => '',
         ]);
         $this->ajaxReturn(self::createReturn(true, $res, '添加成功'));
@@ -53,45 +64,53 @@ class ConstantController extends AdminBase
     /**
      * 编辑字段
      */
-    public function editContent()
+    public function editConstant()
     {
-        $post = I('post.');
-        $id = $post['id'];
+        $constant = I('post.');
+        $id = $constant['id'];
+        $dictionary = $constant['dictionary'];
+        unset($constant['dictionary']);
         if (!$id) {
             $this->ajaxReturn(self::createReturn(false, null, '参数错误：缺少id'));
+            return;
         }
-        $path = $post['path'];
-        if (!$path) {
-            $this->ajaxReturn(self::createReturn(false, null, 'key不能为空'));
-        }
-        $catalog_id = D('Translate/Content')->where(['id' => $id])->getField('catalog_id');
-        $count = D('Translate/Content')->where(['path' => $path, 'catalog_id' => $catalog_id, 'id' => ['NEQ', $id]])->count();
-        if ($count) {
-            $this->ajaxReturn(self::createReturn(false, null, 'key不能重复'));
+        //检测key是否已占用
+        $is_used = D('Translate/Constant')->where(['id' => ['NEQ', $id], 'key' => ['EQ', $constant['key']]])->count() > 0;
+        if ($is_used) {
+            $this->ajaxReturn(self::createReturn(false, null, '参数错误：Key 已被使用'));
+            return;
         }
 
-        $parent_path = D('Translate/Catalog')->where(['id' => $catalog_id])->getField('path');
-        $key = substr($path, strlen($parent_path) + 1); //因为有个.
+        //更新constant
+        D('Translate/Constant')->where(['id' => ['EQ', $id]])->save($constant);
 
-        $data = json_encode($post['data']);
-        $res = D('Translate/Content')->where(['id' => $id])->save([
-            'key' => $key,
-            'path' => $path,
-            'data' => $data
-        ]);
-        $this->ajaxReturn(self::createReturn(true, $res, '修改成功'));
+        //更新dictionary
+        if (!empty($dictionary)) {
+            foreach ($dictionary as $index => $dict) {
+                $dict['key'] = $constant['key'];
+                if (empty($dict['dictionary_id'])) {
+                    unset($dict['dictionary_id']);
+                    D('Translate/Dictionary')->add($dict);
+                } else {
+                    D('Translate/Dictionary')->where(['dictionary_id' => ['EQ', $dict['dictionary_id']]])->save($dict);
+                }
+            }
+        }
+
+        $this->ajaxReturn(self::createReturn(true, null, '操作成功'));
     }
 
     /**
      * 删除
      */
-    public function delContent()
+    public function delConstant()
     {
         $id = I('post.id');
         if (!$id) {
             $this->ajaxReturn(self::createReturn(false, null, '参数错误：缺少id'));
         }
-        $res = D('Translate/Content')->where(['id' => $id])->delete();
-        $this->ajaxReturn(self::createReturn(true, $res, '删除成功'));
+        $ConstantService = new ConstantService();
+        $res = $ConstantService->delConstant($id);
+        $this->ajaxReturn($res);
     }
 }
