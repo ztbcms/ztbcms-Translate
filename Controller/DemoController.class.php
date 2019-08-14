@@ -44,6 +44,13 @@ class DemoController extends AdminBase
     }
 
     /**
+     * 实时切换实例
+     */
+    function fetch_lang_switch(){
+        $this->display();
+    }
+
+    /**
      * 使用 TranslateService 示例
      */
     function doRequestAdmin()
