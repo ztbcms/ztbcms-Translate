@@ -60,6 +60,18 @@ return array(
                     ),
                 )
             ),
+            array(
+                "route" => "Translate/Demo/lang_switch",
+                "type" => 1,
+                "status" => 1,
+                "name" => "示例1",
+            ),
+            array(
+                "route" => "Translate/Demo/fetch_lang_switch",
+                "type" => 1,
+                "status" => 1,
+                "name" => "示例2",
+            ),
         ),
     ),
 );
