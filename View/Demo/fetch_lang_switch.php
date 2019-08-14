@@ -45,8 +45,8 @@
             Vue.use(VueI18n)
             // 通过选项创建 VueI18n 实例
             var i18n = new VueI18n({
-                locale: '', // 设置地区
-                fallbackLocale: '',
+                locale: '中文', // 设置地区
+                fallbackLocale: '中文',
             })
 
             new Vue({
