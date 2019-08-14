@@ -16,7 +16,8 @@
                 </el-option>
             </el-select>
             <h4>{{ $t('hello') }}</h4>
-            <el-button type="primary" @click="countLangAmount">点击统计语言数量</el-button>
+            <el-button type="primary" @click="countLangAmount">点击统计语言数量（vue-i18n模板替换示例）</el-button>
+            <el-button type="primary" @click="clickRequestAdmin">点击请求后台(使用 TranslateService 示例)</el-button>
 
         </el-card>
     </div>
@@ -63,7 +64,34 @@
                 methods: {
                     countLangAmount: function(){
                         this.$message.success(this.$t('countLangAmount', {amount: this.lang_info.length}))
-                    }
+                    },
+                    getDictionaryList: function(){
+                        $.ajax({
+                            type: "POST",
+                            url: '/Translate/Public/getAllDictionaryByLang',
+                            headers: {
+                                'Lang': 'CN'
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                console.log(res)
+                            }
+                        });
+                    },
+                    clickRequestAdmin: function(){
+                        var that = this
+                        $.ajax({
+                            type: "POST",
+                            url: '/Translate/Demo/doRequestAdmin',
+                            headers: {
+                                'Lang': that.current_lang //请求头，指定语言
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                layer.msg(res.msg)
+                            }
+                        });
+                    },
                 },
                 watch: {
                     current_lang: function(newValue){
@@ -71,6 +99,7 @@
                         this.$i18n.locale = newValue
                     }
                 },
+                //headers
                 mounted: function () {
                     for (var lang in this.messages) {
                         this.$i18n.setLocaleMessage(lang, this.messages[lang])

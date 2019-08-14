@@ -46,6 +46,10 @@ class LanguageService extends BaseService
         self::$project_id = $project_id;
     }
 
+    /**
+     * 获取可用的语言列表
+     * @return array
+     */
     static function getAvailableLang()
     {
         $langs = D('Translate/Language')->order(['is_default' => 'desc'])->select();
