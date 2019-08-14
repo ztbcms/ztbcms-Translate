@@ -10,6 +10,11 @@ namespace Translate\Service;
 
 use System\Service\BaseService;
 
+/**
+ * 翻译服务
+ * Class TranslateService
+ * @package Translate\Service
+ */
 class TranslateService extends BaseService
 {
 
@@ -31,6 +36,10 @@ class TranslateService extends BaseService
 
     }
 
+    /**
+     * 设置语言
+     * @param $lang
+     */
     function setLang($lang)
     {
         $this->lang = $lang;
@@ -38,9 +47,9 @@ class TranslateService extends BaseService
 
     /**
      * 获取翻译
-     * @param $key
-     * @param string $default
-     * @param array $replaces
+     * @param string $key key
+     * @param array $replaces 变量替换
+     * @param string $default 默认值
      * @return array
      */
     function getTranslate($key, $replaces = [], $default = '')
