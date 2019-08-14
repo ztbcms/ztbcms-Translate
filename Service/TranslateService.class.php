@@ -67,6 +67,13 @@ class TranslateService extends BaseService
         return self::createReturn(true, $value);
     }
 
+    /**
+     * 构建key，格式：表+字段+ID
+     * @param $table
+     * @param $field
+     * @param $id
+     * @return string
+     */
     function _getTableFieldKey($table, $field, $id)
     {
         return $table . '_' . $field . '_' . $id;
