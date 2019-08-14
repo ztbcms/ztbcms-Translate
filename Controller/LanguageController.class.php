@@ -10,19 +10,22 @@ namespace Translate\Controller;
 
 use Common\Controller\AdminBase;
 
-class LanguageController extends AdminBase{
+class LanguageController extends AdminBase
+{
 
     /**
-     * 语言
+     * 语言列表
      */
-    public function index(){
+    function index()
+    {
         $this->display();
     }
 
     /**
      * 获取语言列表
      */
-    public function getList(){
+    function getList()
+    {
         $page = I('get.page', 1);
         $limit = I('get.limit', 20);
         $items = D('Translate/Language')->page($page, $limit)->select();
@@ -32,16 +35,24 @@ class LanguageController extends AdminBase{
             'limit' => $limit,
             'items' => $items ?: [],
             'total_items' => $total_items,
-            'total_pages' => ceil($total_items/$limit),
+            'total_pages' => ceil($total_items / $limit),
         ];
         $this->ajaxReturn(self::createReturn(true, $data));
     }
 
-    public function language(){
+    /**
+     * 语言详情
+     */
+    function language()
+    {
         $this->display();
     }
 
-    public function getLanguage(){
+    /**
+     * 获取语言详情
+     */
+    function getLanguage()
+    {
         $id = I('get.id');
         $data = D('Translate/Language')->where(['id' => $id])->find();
         $this->ajaxReturn(self::createReturn(true, $data, '获取成功'));
@@ -50,16 +61,22 @@ class LanguageController extends AdminBase{
     /**
      * 编辑
      */
-    public function addEditLanguage(){
+    function addOrEditLanguage()
+    {
         $post = I('post.');
         $count = D('Translate/Language')->where(['is_default' => 1])->count();
-        if($count == 0){
+        if ($count == 0) {
             $post['is_default'] = 1;
         }
         $id = $post['id'];
-        if($id){
+        if (empty($post['lang'])) {
+            $this->ajaxReturn(self::createReturn(false, null, '语言名称不能为空'));
+            return;
+        }
+        $post['lang_name'] = $post['lang'];
+        if ($id) {
             $res = D('Translate/Language')->where(['id' => $id])->save($post);
-        }else{
+        } else {
             $res = D('Translate/Language')->add($post);
         }
         $this->ajaxReturn(self::createReturn(true, $res, '操作成功'));
@@ -68,7 +85,8 @@ class LanguageController extends AdminBase{
     /**
      * 设置默认
      */
-    public function setDefault(){
+    function setDefault()
+    {
         $id = I('post.id');
         D('Translate/Language')->where(['is_default' => 1])->save(['is_default' => 0]);
         D('Translate/Language')->where(['id' => $id])->save(['is_default' => 1]);

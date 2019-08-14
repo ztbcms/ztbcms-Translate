@@ -50,7 +50,7 @@
                         var data = that.postData;
                         data.id = that.id;
                         $.ajax({
-                            url: "{:U('Translate/Project/addEditProject')}",
+                            url: "{:U('Translate/Project/addOrEditProject')}",
                             data: data,
                             dataType: 'json',
                             type: 'post',
