@@ -139,10 +139,6 @@
                 //headers
                 mounted: function () {
                     this.getLangList()
-                    // for (var lang in this.messages) {
-                    //     this.$i18n.setLocaleMessage(lang, this.messages[lang])
-                    // }
-
                 }
             })
         })
