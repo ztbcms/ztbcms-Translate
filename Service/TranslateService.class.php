@@ -66,4 +66,53 @@ class TranslateService extends BaseService
 
         return self::createReturn(true, $value);
     }
+
+    function _getTableFieldKey($table, $field, $id)
+    {
+        return $table . '_' . $field . '_' . $id;
+    }
+
+    /**
+     * 根据表格式(表+字段+ID)获取翻译值
+     * @param $table
+     * @param $field
+     * @param $id
+     * @param $lang
+     * @return array
+     */
+    function getTranslateByTableFieldId($table, $field, $id, $lang)
+    {
+        $key = $this->_getTableFieldKey($table, $field, $id);
+        return $this->dictionaryService->getValueByKey($key, $lang);
+    }
+
+    /**
+     * 设置翻译(根据表格式(表+字段+ID))
+     * @param $table
+     * @param $field
+     * @param $id
+     * @param $lang
+     * @param $value
+     * @return array
+     */
+    function setTranslateByTableFieldId($table, $field, $id, $lang, $value)
+    {
+        $key = $this->_getTableFieldKey($table, $field, $id);
+        $this->deleteTranslateByTableFieldId($table, $field, $id, $lang);
+        return $this->dictionaryService->addDictionaryByKey($key, $lang, $value);
+    }
+
+    /**
+     * 删除翻译（根据表格式(表+字段+ID)）
+     * @param $table
+     * @param $field
+     * @param $id
+     * @param $lang
+     * @return array
+     */
+    function deleteTranslateByTableFieldId($table, $field, $id, $lang)
+    {
+        $key = $this->_getTableFieldKey($table, $field, $id);
+        return $this->dictionaryService->deleteDictionaryByKey($key, $lang);
+    }
 }

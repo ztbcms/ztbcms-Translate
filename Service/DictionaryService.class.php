@@ -130,11 +130,7 @@ class DictionaryService extends BaseService
         ]);
     }
 
-    function addDictionaryByTableFieldId($table, $field, $id, $lang, $value)
-    {
-        $key = $table . '_' . $field . '_' . $id;
-        return $this->addDictionaryByKey($key, $lang, $value);
-    }
+
 
     static function delDictionary($key)
     {
@@ -207,9 +203,20 @@ class DictionaryService extends BaseService
         return self::delete('Translate/Dictionary', ['id' => $id]);
     }
 
-    function deleteDictionaryByKey($key)
+    /**
+     * 删除
+     * @param $key
+     * @param string $lang
+     * @return array
+     */
+    function deleteDictionaryByKey($key, $lang = '')
     {
-        return self::delete('Translate/Dictionary', ['key' => $key]);
+        if (empty($lang)) {
+            return self::delete('Translate/Dictionary', ['key' => $key]);
+        } else {
+            return self::delete('Translate/Dictionary', ['key' => $key, 'lang' => $lang]);
+        }
+
     }
 
 }
