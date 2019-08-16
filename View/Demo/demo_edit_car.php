@@ -1,12 +1,10 @@
 <extend name="../../Admin/View/Common/element_layout"/>
 
-<!--纯前端实现-->
-
 <block name="content">
 
     <div id="app" style="padding: 8px;height: 100%;" v-cloak>
         <el-card>
-            <h2>切换示例（Vue-i18n）</h2>
+            <h2>车辆信息</h2>
 
             <div style="margin-top: 10px;">
                 <el-form ref="form" label-width="120px">
@@ -143,6 +141,11 @@
                             if (res.status) {
                                 layer.msg(res.msg, {time: 1000}, function () {
                                 });
+                                if(window !== window.parent){
+                                    setTimeout(function(){
+                                        window.parent.layer.closeAll()
+                                    }, 1000)
+                                }
                             } else {
                                 layer.msg(res.msg, {time: 1000});
                             }

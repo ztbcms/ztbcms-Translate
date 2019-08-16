@@ -72,6 +72,12 @@ return array(
                 "status" => 1,
                 "name" => "示例2",
             ),
+            array(
+                "route" => "Translate/Demo/demo_car_list",
+                "type" => 1,
+                "status" => 1,
+                "name" => "示例3车辆管理",
+            ),
         ),
     ),
 );

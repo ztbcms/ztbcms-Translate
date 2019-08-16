@@ -140,6 +140,24 @@ class DemoController extends AdminBase
         $this->ajaxReturn(self::createReturn(true, $res));
     }
 
+    function getCarList()
+    {
+        //指定获取分页结果的第几页
+        $page = I('page', 1);
+        $limit = I('limit', 20);
+
+        $db = D('Translate/DemoCar');
+        $where = [];
+        //获取总记录数
+        $count = $db->where($where)->count();
+        //总页数
+        $total_page = ceil($count / $limit);
+        //获取到的分页数据
+        $lists = $db->where($where)->page($page)->limit($limit)->order('id desc')->select();
+        //返回数据
+        $this->ajaxReturn(self::createReturnList(true, $lists, $page, $limit, $count, $total_page));
+    }
+
     /**
      * 使用 TranslateService 示例
      */
