@@ -122,8 +122,7 @@
                         this.where.page = 1
                         this.getList()
                     },
-
-                    clickAddCar: function (id = 0){
+                    openEditCar: function(id = 0){
                         var url = "/Translate/Demo/demo_edit_car"
                         if(id !== 0){
                             url += '?id='+id
@@ -138,6 +137,10 @@
                                 that.getList()
                             }
                         })
+                    },
+
+                    clickAddCar: function (){
+                        this.openEditCar()
                     },
                     editItem: function(id){
                         this.clickAddCar(id)
