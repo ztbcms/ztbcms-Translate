@@ -33,6 +33,7 @@ class TranslateService extends BaseService
     {
         $this->setLang($lang);
         $this->dictionaryService = new DictionaryService();
+        $this->dictionaryService->setFallbackLang('');
 
     }
 

@@ -9,7 +9,6 @@ namespace Translate\Controller;
 
 
 use Common\Controller\AdminBase;
-use Common\Controller\Base;
 use Translate\Model\DemoCarModel;
 use Translate\Service\LanguageService;
 use Translate\Service\TranslateService;
@@ -18,7 +17,7 @@ use Translate\Service\TranslateService;
  *
  * @package Translate\Controller
  */
-class DemoController extends Base
+class DemoController extends AdminBase
 {
     protected $lang = '中文';
 
@@ -80,10 +79,10 @@ class DemoController extends Base
         //需要多语言处理的字段
         $translate_fields = ['model', 'description'];
         $translate_field_values = [];
+        //构建默认语言的 form
         foreach ($translate_fields as $field) {
             $translate_field_values[$field] = $form[$field];
             $form[$field] = isset($form[$field][LanguageService::DEFAULT_LANG]) ? $form[$field][LanguageService::DEFAULT_LANG] : '';//默认中文
-
         }
 
         if ($id) {
@@ -92,7 +91,7 @@ class DemoController extends Base
         } else {
             $form['input_time'] = time();
             $form['update_time'] = time();
-            $res = D('Translate/DemoCar')->where(['id' => $id])->add($form);
+            $res = D('Translate/DemoCar')->add($form);
             $id = $res;
         }
 
@@ -112,13 +111,13 @@ class DemoController extends Base
 
     /**
      * 获取车辆详情
-     * @return array
+     * @return void
      */
     function getCarDetail(){
         $id = I('get.id');
         $res = D('Translate/DemoCar')->where(['id' => $id])->find();
         if(!$res){
-            return self::createReturn(false, null ,'找不到信息');
+            $this->ajaxReturn(self::createReturn(false, null ,'找不到信息'));
         }
 
         $LangList = LanguageService::getAvailableLang()['data'];

@@ -74,14 +74,16 @@
 
 <block name="footer">
     <script>
-        //语言列表
-        var _LANG_LIST = JSON.parse('{:json_encode($data["langList"])}') || []
-        var _UEDITOR_LIST = {}
-        for(var i=0; i< _LANG_LIST.length;i++){
-            var lang = _LANG_LIST[i]['lang']
-            _UEDITOR_LIST[lang] = UE.getEditor('editor_content_'+lang, ueditor_config);
-        }
+
         $(document).ready(function () {
+            //语言列表
+            var _LANG_LIST = JSON.parse('{:json_encode($data["langList"])}') || []
+            var _UEDITOR_LIST = {}
+            for(var i=0; i< _LANG_LIST.length;i++){
+                var lang = _LANG_LIST[i]['lang']
+                _UEDITOR_LIST[lang] = UE.getEditor('editor_content_'+lang, ueditor_config);
+            }
+
             Vue.use(VueI18n)
             // 通过选项创建 VueI18n 实例
             var i18n = new VueI18n({
@@ -116,11 +118,31 @@
                     }
                 },
                 methods: {
+                    //获取详情
+                    getDetail: function () {
+                        var that = this;
+                        var url = '/Translate/Demo/getCarDetail?id='+this.form.id
+                        that.httpGet(url, {}, function(res){
+                            if(res.status){
+                                that.form = res.data;
 
-                    onEdiotorContentChanged: function () {
-                        console.log('onEdiotorContentChanged')
-                        console.log(this.editor.getContent())
-                        this.languageForm.description = this.editor.getContent()
+                                for(var i=0; i< _LANG_LIST.length;i++){
+                                    var lang = _LANG_LIST[i]['lang']
+                                    var editor = _UEDITOR_LIST[lang]
+
+                                    if (!editor) {
+                                        continue;
+                                    }
+
+                                    editor.ready(function (editor, lang) {
+                                        //ueditor 初始化
+                                        editor.setContent(that.form['description'][lang]);
+                                    }.bind(this, editor, lang))
+                                }
+                            }else{
+                                layer.msg(res.msg, {time: 1000});
+                            }
+                        });
                     },
                     submit: function(){
                         var that = this;
@@ -130,16 +152,12 @@
                             that.form['description'][lang] = _UEDITOR_LIST[lang].getContent();
                         }
 
-
                         var url = '{:U("Translate/Demo/doAddEditCar")}';
                         var data = that.form;
-                        data.id = that.id;
 
                         that.httpPost(url, data, function(res){
                             if(res.status){
-                                layer.msg(res.msg, {time: 1000}, function(){
-                                    that.closeIframe();
-                                });
+                                layer.msg(res.msg, {time: 1000}, function(){});
                             }else{
                                 layer.msg(res.msg, {time: 1000});
                             }
@@ -161,16 +179,12 @@
                         that.$i18n.locale = newValue
                     },
                 },
-                //headers
                 mounted: function () {
                     var that = this
-                    // this.editor = UE.getEditor('editor_content', ueditor_config);
-                    // this.editor.ready(function() {
-                    //     that.getLangList()
-                    //
-                    //     that.editor.addListener("contentchange", that.onEdiotorContentChanged)
-                    // });
-
+                    if(that.form.id){
+                        console.log(that.form.id)
+                        that.getDetail()
+                    }
                 }
             })
         })
