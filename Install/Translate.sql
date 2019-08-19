@@ -45,6 +45,17 @@ CREATE TABLE `cms_translate_dictionary` (
   KEY `key` (`key`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='常量分类';
 
+CREATE TABLE `cms_translate_demo_car` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `model` varchar(255) DEFAULT NULL COMMENT '车型',
+  `year` varchar(16) DEFAULT NULL COMMENT '年份',
+  `transmission` tinyint(1) DEFAULT NULL COMMENT '变速箱类型',
+  `vin` varchar(255) DEFAULT NULL COMMENT 'VIN 编码',
+  `description` text,
+  `input_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (1, '中文', '中文', 1);
 INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (2, 'English', 'English', 0);
