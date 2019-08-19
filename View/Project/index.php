@@ -23,6 +23,7 @@
                         <td align="center">
                             <a @click="editProject(item.id)" class="btn btn-primary">修改</a>
                             <a @click="showCatalog(item.id)" class="btn btn-primary">编辑文档</a>
+                            <a @click="exportProject(item.id)" class="btn btn-primary">导出文档翻译</a>
                         </td>
                     </tr>
                     </tbody>
@@ -105,6 +106,11 @@
                             content: '/Translate/ConstantCategory/index?id='+id,
                             area: ['90%', '90%']
                         });
+                    },
+                    exportProject: function(id){
+                        var that = this;
+                        var url = '/Translate/Export/exportConstantByProject?project_id='+id;
+                        window.open(url);
                     }
                 },
                 mounted: function () {

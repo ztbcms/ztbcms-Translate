@@ -5,7 +5,7 @@
         <div class="table_list">
             <div style="position: relative;padding: 4px;height: 60px;">
                 <h3 style="display: inline-block;">翻译对照表</h3>
-                <button @click="exportConstant" class="btn btn-success" style="float: right;margin-left: 15px;margin-top: 10px;">导出翻译</button>
+                <button @click="exportConstant" class="btn btn-success" style="float: right;margin-left: 15px;margin-top: 10px;">导出本页翻译</button>
                 <button @click="addConstant" class="btn btn-primary" style="float: right;margin-left: 15px;margin-top: 10px;">添加翻译</button>
             </div>
             <table class="table table-bordered table-hover">
@@ -125,7 +125,7 @@
                     },
                     exportConstant: function(){
                         var that = this;
-                        var url = '{:U("Translate/ConstantCategory/exportConstant")}&category_id='+that.id;
+                        var url = '{:U("Translate/Export/exportConstantByCategory")}&category_id='+that.id;
                         window.open(url);
                     }
                 },
