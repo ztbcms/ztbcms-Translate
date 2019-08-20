@@ -77,19 +77,10 @@
             new Vue({
                 el: '#app',
                 data: {
-                    editor: null,
+                    //当前语言
                     current_lang: '中文',
                     //语言
                     langList: _LANG_LIST,
-                    messages: {
-                        // '中文': {
-                        //     demo_model: '车型',
-                        // },
-                    },
-                    languageForm: {
-                        model: '',
-                        description: '',
-                    },
                     form: {
                         id: '{:I("get.id")}',
                         vin: '',

@@ -7,7 +7,7 @@
 
             <div class="filter-container">
 
-                <el-button class="filter-item" type="primary" @click="clickAddCar">
+                <el-button class="filter-item" type="primary" @click="clickAddItem">
                     添加
                 </el-button>
             </div>
@@ -40,9 +40,9 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
-                    <template slot-scope="{row}">
+                    <template slot-scope="scope">
                         <el-button size="mini" type="primary"
-                                   @click="editItem(row.id)">
+                                   @click="editItem(scope.row.id)">
                             编辑
                         </el-button>
                     </template>
@@ -89,14 +89,8 @@
                         limit: 20,
                     },
                 },
-                watch: {
-
-                },
-                filters: {
-                    parseTime: function (time, format) {
-                        return Ztbcms.formatTime(time, format)
-                    },
-                },
+                watch: {},
+                filters: {},
                 methods: {
                     getList: function () {
                         var that = this;
@@ -114,15 +108,8 @@
                             }
                         });
                     },
-                    search: function () {
-                        this.where.page = 1;
-                        this.getList();
-                    },
-                    handleFilter: function () {
-                        this.where.page = 1
-                        this.getList()
-                    },
-                    openEditCar: function(id = 0){
+                    //打开编辑框
+                    openEditItem: function(id = 0){
                         var url = "/Translate/Demo/demo_edit_car"
                         if(id !== 0){
                             url += '?id='+id
@@ -132,18 +119,17 @@
                             type: 2,
                             title: '编辑',
                             content: url,
-                            area: ['60%', '70%'],
+                            area: ['100%', '100%'],
                             end: function(){
                                 that.getList()
                             }
                         })
                     },
-
-                    clickAddCar: function (){
-                        this.openEditCar()
+                    clickAddItem: function (){
+                        this.openEditItem()
                     },
                     editItem: function(id){
-                        this.clickAddCar(id)
+                        this.openEditItem(id)
                     }
                 },
                 mounted: function () {
