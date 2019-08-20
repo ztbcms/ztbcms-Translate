@@ -123,6 +123,7 @@
                         for (var i = 0; i < _LANG_LIST.length; i++) {
                             var lang = _LANG_LIST[i]['lang']
                             that.form['description'][lang] = _UEDITOR_LIST[lang].getContent();
+                            that.form['model'][lang] = that.form['model'][lang] || '';
                         }
 
                         var url = '{:U("Translate/Demo/doAddEditCar")}';
