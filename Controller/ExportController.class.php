@@ -44,7 +44,8 @@ class ExportController extends AdminBase
             $data[$lang] = $tmp;
         }
 
-        $this->ajaxReturn($data);
+        echo(json_encode($data));
+        exit;
     }
 
     /**
@@ -79,6 +80,7 @@ class ExportController extends AdminBase
             $data[$lang] = $tmp;
         }
 
-        $this->ajaxReturn($data);
+        echo json_encode($data);
+        exit;
     }
 }

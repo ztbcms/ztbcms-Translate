@@ -73,7 +73,6 @@ class LanguageController extends AdminBase
             $this->ajaxReturn(self::createReturn(false, null, '语言名称不能为空'));
             return;
         }
-        $post['lang_name'] = $post['lang'];
         if ($id) {
             $res = D('Translate/Language')->where(['id' => $id])->save($post);
         } else {

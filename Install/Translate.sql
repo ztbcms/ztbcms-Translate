@@ -57,17 +57,17 @@ CREATE TABLE `cms_translate_demo_car` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (1, '中文', '中文', 1);
-INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (2, 'English', 'English', 0);
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (1, 'demo.model', 'Model', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (2, 'demo.model', '车型', '中文');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(3, 'demo.year', 'Year', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(4, 'demo.year', '年份', '中文');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(5, 'demo.transmission', 'Transmission', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(6, 'demo.transmission', '变速箱', '中文');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(7, 'demo.transmission.not_limited', 'Not limited', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (8, 'demo.transmission.not_limited', '不限制', '中文');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(9, 'demo.transmission.automatic', 'Automatic', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (10, 'demo.transmission.automatic', '自动挡', '中文');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (11, 'demo.transmission.manual', 'Manual', 'English');
-INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (12, 'demo.transmission.manual', '手动挡', '中文');
+INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (1, 'CN', '中文', 1);
+INSERT INTO `cms_translate_language` (`id`, `lang`, `lang_name`, `is_default`) VALUES (2, 'EN', 'English', 0);
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (1, 'demo.model', 'Model', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (2, 'demo.model', '车型', 'CN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(3, 'demo.year', 'Year', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(4, 'demo.year', '年份', 'CN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(5, 'demo.transmission', 'Transmission', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(6, 'demo.transmission', '变速箱', 'CN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(7, 'demo.transmission.not_limited', 'Not limited', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (8, 'demo.transmission.not_limited', '不限制', 'CN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES(9, 'demo.transmission.automatic', 'Automatic', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (10, 'demo.transmission.automatic', '自动挡', 'CN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (11, 'demo.transmission.manual', 'Manual', 'EN');
+INSERT INTO `cms_translate_dictionary` (`dictionary_id`, `key`, `value`, `lang`) VALUES (12, 'demo.transmission.manual', '手动挡', 'CN');

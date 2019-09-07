@@ -17,7 +17,8 @@ use System\Service\BaseService;
  */
 class LanguageService extends BaseService
 {
-    const DEFAULT_LANG = '中文';
+    //默认语言
+    const DEFAULT_LANG = 'CN';
     //当前的语言
     private static $lang;
     //当前的项目

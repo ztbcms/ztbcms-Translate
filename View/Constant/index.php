@@ -27,7 +27,7 @@
                     <td align="center">
                         <template v-for="dictionary in  item.dictionary">
                             <div style="padding: 10px;">
-                                <span style="width: 10%;display: inline-block;text-align: right;padding-right: 8px;">{{ dictionary.lang }}  </span>
+                                <span style="width: 10%;display: inline-block;text-align: right;padding-right: 8px;">{{ dictionary.lang_name }}  </span>
                                 <input class="form-control" type="text" v-model="dictionary.value" @change="editConstant(index)" style="display: inline-block;width: 80%" >
                             </div>
                         </template>
@@ -88,8 +88,6 @@
                     editConstant: function(index){
                         var that = this;
                         var data = that.items[index]
-                        // console.log(data)
-                        // return
                         $.ajax({
                             url: '{:U("Translate/Constant/editConstant")}',
                             data: data,

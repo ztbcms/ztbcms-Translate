@@ -12,7 +12,8 @@
                     <thead>
                     <tr style="background: ghostwhite;">
                         <td width="20%" align="center">ID</td>
-                        <td align="center">名称</td>
+                        <td align="center">语言内部名称</td>
+                        <td align="center">语言外部名称</td>
                         <td align="center">是否默认</td>
                         <td width="30%" align="center">操作</td>
                     </tr>
@@ -21,6 +22,7 @@
                     <tr v-for="item in items">
                         <td align="center">{{item.id}}</td>
                         <td align="center">{{item.lang}}</td>
+                        <td align="center">{{item.lang_name}}</td>
                         <td align="center">{{item.is_default == 1 ? '是' : '否' }}</td>
                         <td align="center">
                             <a @click="editLanguage(item.id)" class="btn btn-primary">修改</a>
