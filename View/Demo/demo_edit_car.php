@@ -27,7 +27,7 @@
 
                     <el-tabs v-model="current_lang" @tab-click="">
                         <volist name="data['langList']" id="vo">
-                            <el-tab-pane label="{$vo['lang']}" name="{$vo['lang']}">
+                            <el-tab-pane label="{$vo['lang_name']}" name="{$vo['lang']}">
                                 <el-form-item label="车型">
                                     <el-input v-model="form.model.{$vo['lang']}"></el-input>
                                 </el-form-item>
@@ -78,7 +78,8 @@
                 el: '#app',
                 data: {
                     //当前语言
-                    current_lang: '中文',
+                    current_lang: 'CN',
+                    current_lang_name: '中文',
                     //语言
                     langList: _LANG_LIST,
                     form: {
@@ -117,12 +118,14 @@
                             }
                         });
                     },
+                    //提交
                     submit: function () {
                         var that = this;
 
                         for (var i = 0; i < _LANG_LIST.length; i++) {
                             var lang = _LANG_LIST[i]['lang']
-                            that.form['description'][lang] = _UEDITOR_LIST[lang].getContent();
+                            that.form['description'][lang] = _UEDITOR_LIST[lang].getContent() || '';
+                            that.form['model'][lang] = that.form['model'][lang] || '';
                         }
 
                         var url = '{:U("Translate/Demo/doAddEditCar")}';

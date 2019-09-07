@@ -5,9 +5,15 @@
         <div class="table_list">
             <table class="table table-bordered table-hover">
                 <tr>
-                    <td>lang</td>
+                    <td>语言内部名称</td>
                     <td>
                         <input class="form-control" style="width: 30%;" type="text" v-model="postData.lang">
+                    </td>
+                </tr>
+                <tr>
+                    <td>语言外部名称</td>
+                    <td>
+                        <input class="form-control" style="width: 30%;" type="text" v-model="postData.lang_name">
                     </td>
                 </tr>
                 <tr>

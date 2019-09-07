@@ -9,9 +9,9 @@
                 <el-input v-model="listQuery.key" placeholder="Key" style="width: 200px;"
                           class="filter-item"></el-input>
 
-                <el-select v-model="listQuery.lang" placeholder="语言" clearable style="width: 90px"
+                <el-select v-model="listQuery.lang" placeholder="语言" clearable style="width: 150px"
                            class="filter-item">
-                    <el-option v-for="(item,index) in languageList" :key="index" :label="item.lang"
+                    <el-option v-for="(item,index) in languageList" :key="index" :label="item.lang_name + ' | ' + item.lang"
                                :value="item.lang"></el-option>
                 </el-select>
 

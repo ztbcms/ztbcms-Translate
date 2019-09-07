@@ -14,9 +14,9 @@
 
 
                             <el-form-item label="语言">
-                                <el-select v-model="form.lang" placeholder="请选择" clearable style="width: 90px"
+                                <el-select v-model="form.lang" placeholder="请选择" clearable style="width: 150px"
                                            class="filter-item">
-                                    <el-option v-for="(item,index) in languageList" :key="index" :label="item.lang" :value="item.lang"></el-option>
+                                    <el-option v-for="(item,index) in languageList" :key="index" :label="item.lang_name + ' | ' + item.lang" :value="item.lang"></el-option>
                                 </el-select>
                             </el-form-item>
 
