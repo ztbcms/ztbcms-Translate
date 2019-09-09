@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `cms_translate_dictionary`;
 CREATE TABLE `cms_translate_dictionary` (
   `dictionary_id` int(11) NOT NULL AUTO_INCREMENT,
   `key` varchar(512) NOT NULL DEFAULT '',
-  `value` varchar(512) NOT NULL DEFAULT '',
+  `value` text NOT NULL,
   `lang` varchar(255) NOT NULL,
   PRIMARY KEY (`dictionary_id`),
   KEY `key` (`key`(255))
