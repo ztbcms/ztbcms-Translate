@@ -61,7 +61,7 @@
 
 <block name="footer">
     <!-- 引入UEditor   -->
-    <include file="Common/ueditor"/>
+    <include file="../../Admin/View/Common/ueditor"/>
 
     <script>
         $(document).ready(function () {
