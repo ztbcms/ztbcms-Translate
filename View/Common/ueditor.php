@@ -1,7 +1,7 @@
 <script type="text/javascript" charset="utf-8"
         src="{$config_siteurl}statics/admin/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8"
-        src="{$config_siteurl}statics/admin/ueditor/ueditor.all.min.js"></script>
+        src="{$config_siteurl}statics/admin/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8"
         src="{$config_siteurl}statics/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script>
@@ -11,3 +11,8 @@
         lineheight: ['0', '1', '1.5', '1.75', '2', '3', '4', '5']
     }
 </script>
+
+<!--  秀米编辑器  -->
+<link rel="stylesheet" href="{$config_siteurl}statics/admin/ueditor/xiumi/xiumi-ue-v5.css">
+<script src="{$config_siteurl}statics/admin/ueditor/xiumi/xiumi-ue-dialog-v5.js"></script>
+<!--  秀米编辑器END  -->
