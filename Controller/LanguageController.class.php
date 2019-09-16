@@ -30,14 +30,15 @@ class LanguageController extends AdminBase
         $limit = I('get.limit', 20);
         $items = D('Translate/Language')->page($page, $limit)->select();
         $total_items = D('Translate/Language')->count();
-        $data = [
+        $total_pages = ceil($total_items / $limit);
+        /*$data = [
             'page' => $page,
             'limit' => $limit,
             'items' => $items ?: [],
             'total_items' => $total_items,
             'total_pages' => ceil($total_items / $limit),
-        ];
-        $this->ajaxReturn(self::createReturn(true, $data));
+        ];*/
+        $this->ajaxReturn(self::createReturnList(true, $items, $page, $limit, $total_items, $total_pages));
     }
 
     /**
@@ -91,4 +92,16 @@ class LanguageController extends AdminBase
         D('Translate/Language')->where(['id' => $id])->save(['is_default' => 1]);
         $this->ajaxReturn(self::createReturn(true, null, '操作成功'));
     }
+
+    function deleteLanguage()
+    {
+        $id = I('id');
+        $num = D('Translate/Language')->where(['id' => $id])->delete();
+        if ($num === false) {
+            $this->ajaxReturn(self::createReturn(false, '', '删除失败'));
+        } else {
+            $this->ajaxReturn(self::createReturn(true, '', '删除成功'));
+        }
+    }
+
 }
