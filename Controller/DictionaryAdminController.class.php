@@ -64,10 +64,11 @@ class DictionaryAdminController extends AdminBase
      */
     function doEditDictionary()
     {
-        $dictionary_id = I('post.dictionary_id');
-        $key = I('post.key');
-        $value = I('post.value');
-        $lang = I('post.lang');
+        $post = $_POST;
+        $dictionary_id = $post['dictionary_id'];
+        $key = $post['key'];
+        $value = $post['value'];
+        $lang = $post['lang'];
 
         if (empty($lang)) {
             $this->ajaxReturn(self::createReturn(false, null, '请指定语言'));

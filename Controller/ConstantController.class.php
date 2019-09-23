@@ -66,7 +66,7 @@ class ConstantController extends AdminBase
      */
     public function editConstant()
     {
-        $constant = I('post.');
+        $constant = $_POST;
         $id = $constant['id'];
         $dictionary = $constant['dictionary'];
         unset($constant['dictionary']);
