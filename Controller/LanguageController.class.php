@@ -31,13 +31,6 @@ class LanguageController extends AdminBase
         $items = D('Translate/Language')->page($page, $limit)->select();
         $total_items = D('Translate/Language')->count();
         $total_pages = ceil($total_items / $limit);
-        /*$data = [
-            'page' => $page,
-            'limit' => $limit,
-            'items' => $items ?: [],
-            'total_items' => $total_items,
-            'total_pages' => ceil($total_items / $limit),
-        ];*/
         $this->ajaxReturn(self::createReturnList(true, $items, $page, $limit, $total_items, $total_pages));
     }
 
